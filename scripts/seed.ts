@@ -5,12 +5,14 @@
 //
 // Usage : npm run seed  (nécessite NEXT_PUBLIC_SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY dans .env.local)
 
-import 'dotenv/config';
+import { config } from 'dotenv';
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from '../src/types/database';
 import { persistBracket } from '../src/lib/tournament/persist-bracket';
 import { determineWinner } from '../src/lib/tournament/scoring';
 import { sportStatusForRound } from '../src/lib/tournament/status';
+
+config({ path: '.env.local' });
 
 const DEMO_TEAMS = [
   { name: 'DEMO — Lions de Deido', neighborhood: 'Deido' },

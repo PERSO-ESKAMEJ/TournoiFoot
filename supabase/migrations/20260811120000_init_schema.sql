@@ -7,7 +7,7 @@
 create extension if not exists "pgcrypto";
 
 -- ────────────────────────────────────────────────────────────
--- Fonctions utilitaires
+-- Fonction utilitaire générique (ne dépend d'aucune table)
 -- ────────────────────────────────────────────────────────────
 
 create or replace function set_updated_at()
@@ -19,6 +19,31 @@ begin
   return new;
 end;
 $$;
+
+-- ────────────────────────────────────────────────────────────
+-- 1. profiles — comptes organisateurs (RBAC)
+-- Doit être créée AVANT les fonctions fn_current_role() etc. ci-dessous :
+-- une fonction "language sql" est résolue à sa création, elle exige donc que
+-- les tables qu'elle référence existent déjà.
+-- ────────────────────────────────────────────────────────────
+
+create table profiles (
+  id          uuid primary key references auth.users(id) on delete cascade,
+  full_name   text not null,
+  role        text not null check (role in ('super_admin', 'tournament_manager', 'read_only')),
+  created_at  timestamptz not null default now()
+);
+
+alter table profiles enable row level security;
+
+create policy "profiles_select_authenticated" on profiles
+  for select to authenticated using (true);
+-- Pas de policy insert/update/delete pour authenticated/anon : la gestion des comptes
+-- organisateurs passe par le script scripts/create-admin.ts (clé service_role).
+
+-- ────────────────────────────────────────────────────────────
+-- Fonctions utilitaires RBAC (dépendent de profiles, doivent venir après)
+-- ────────────────────────────────────────────────────────────
 
 -- Rôle de l'utilisateur connecté (null si pas de profil / pas connecté)
 create or replace function fn_current_role()
@@ -60,24 +85,6 @@ set search_path = public
 as $$
   select fn_current_role() = 'super_admin';
 $$;
-
--- ────────────────────────────────────────────────────────────
--- 1. profiles — comptes organisateurs (RBAC)
--- ────────────────────────────────────────────────────────────
-
-create table profiles (
-  id          uuid primary key references auth.users(id) on delete cascade,
-  full_name   text not null,
-  role        text not null check (role in ('super_admin', 'tournament_manager', 'read_only')),
-  created_at  timestamptz not null default now()
-);
-
-alter table profiles enable row level security;
-
-create policy "profiles_select_authenticated" on profiles
-  for select to authenticated using (true);
--- Pas de policy insert/update/delete pour authenticated/anon : la gestion des comptes
--- organisateurs passe par le script scripts/create-admin.ts (clé service_role).
 
 -- ────────────────────────────────────────────────────────────
 -- 2. tournaments — paramètres du tournoi

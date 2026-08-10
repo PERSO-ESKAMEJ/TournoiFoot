@@ -4,9 +4,11 @@
 //
 // Rôles possibles : super_admin | tournament_manager | read_only
 
-import 'dotenv/config';
+import { config } from 'dotenv';
 import { createClient } from '@supabase/supabase-js';
 import type { Database, ProfileRole } from '../src/types/database';
+
+config({ path: '.env.local' });
 
 function parseArgs(): Record<string, string> {
   const args: Record<string, string> = {};
