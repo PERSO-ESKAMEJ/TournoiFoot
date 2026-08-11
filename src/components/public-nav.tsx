@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Trophy } from 'lucide-react';
+import { Trophy, ShieldUser } from 'lucide-react';
 
 const LINKS = [
   { href: '/', label: 'Accueil' },
@@ -28,6 +28,14 @@ export function PublicNav() {
               <span className="absolute -bottom-0.5 left-0 h-0.5 w-0 bg-[linear-gradient(to_right,var(--gold-gradient-from),var(--gold-gradient-to))] transition-all duration-300 group-hover:w-full" />
             </Link>
           ))}
+          <span className="h-4 w-px bg-border" aria-hidden="true" />
+          <Link
+            href="/admin/login"
+            className="flex items-center gap-1.5 py-1 text-muted-foreground transition-colors hover:text-primary"
+          >
+            <ShieldUser className="size-4" />
+            <span className="hidden sm:inline">Admin</span>
+          </Link>
         </div>
       </nav>
       <div className="gold-hairline" />
