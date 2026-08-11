@@ -11,7 +11,7 @@ export default async function CandidatureDetailPage({ params }: { params: Promis
 
   const [{ data: application }, { data: players }] = await Promise.all([
     supabase.from('team_applications').select('*').eq('id', id).single(),
-    supabase.from('application_players').select('*').eq('application_id', id).order('jersey_number'),
+    supabase.from('application_players').select('*').eq('application_id', id).order('name'),
   ]);
 
   if (!application) notFound();
@@ -26,25 +26,14 @@ export default async function CandidatureDetailPage({ params }: { params: Promis
         <Badge>{APPLICATION_STATUS_LABELS[application.status]}</Badge>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Équipe</CardTitle>
-        </CardHeader>
-        <CardContent className="grid grid-cols-2 gap-2 text-sm">
-          <span className="text-muted-foreground">Quartier</span>
-          <span>{application.neighborhood ?? '—'}</span>
-          <span className="text-muted-foreground">Couleurs</span>
-          <span>
-            {[application.primary_color, application.secondary_color].filter(Boolean).join(' / ') || '—'}
-          </span>
-          {application.comment && (
-            <>
-              <span className="text-muted-foreground">Commentaire</span>
-              <span>{application.comment}</span>
-            </>
-          )}
-        </CardContent>
-      </Card>
+      {application.comment && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Commentaire</CardTitle>
+          </CardHeader>
+          <CardContent className="text-sm">{application.comment}</CardContent>
+        </Card>
+      )}
 
       <Card>
         <CardHeader>
@@ -52,23 +41,9 @@ export default async function CandidatureDetailPage({ params }: { params: Promis
         </CardHeader>
         <CardContent className="grid grid-cols-2 gap-2 text-sm">
           <span className="text-muted-foreground">Nom</span>
-          <span>
-            {application.contact_first_name} {application.contact_last_name}
-          </span>
+          <span>{application.contact_name}</span>
           <span className="text-muted-foreground">WhatsApp</span>
           <span>{application.contact_whatsapp}</span>
-          {application.contact_phone && (
-            <>
-              <span className="text-muted-foreground">Téléphone</span>
-              <span>{application.contact_phone}</span>
-            </>
-          )}
-          {application.contact_email && (
-            <>
-              <span className="text-muted-foreground">Email</span>
-              <span>{application.contact_email}</span>
-            </>
-          )}
         </CardContent>
       </Card>
 
@@ -82,12 +57,7 @@ export default async function CandidatureDetailPage({ params }: { params: Promis
           ) : (
             <ul className="space-y-1 text-sm">
               {players.map((p) => (
-                <li key={p.id} className="flex justify-between">
-                  <span>
-                    {p.first_name} {p.last_name} {p.nickname ? `"${p.nickname}"` : ''}
-                  </span>
-                  <span className="text-muted-foreground">{p.jersey_number != null ? `#${p.jersey_number}` : ''}</span>
-                </li>
+                <li key={p.id}>{p.name}</li>
               ))}
             </ul>
           )}

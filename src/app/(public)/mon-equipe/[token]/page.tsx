@@ -11,18 +11,12 @@ interface Application {
   id: string;
   reference: string;
   team_name: string;
-  neighborhood: string | null;
-  primary_color: string | null;
-  secondary_color: string | null;
   comment: string | null;
-  contact_first_name: string;
-  contact_last_name: string;
+  contact_name: string;
   contact_whatsapp: string;
-  contact_phone: string | null;
-  contact_email: string | null;
   status: ApplicationStatus;
   review_notes: string | null;
-  players: { first_name: string; last_name: string; nickname: string | null; jersey_number: number | null; role: string | null }[];
+  players: { name: string }[];
 }
 
 const EDITABLE_STATUSES: ApplicationStatus[] = ['draft', 'submitted', 'needs_info'];
@@ -71,11 +65,7 @@ export default async function MyTeamPage({ params }: { params: Promise<{ token: 
               <p className="font-medium">Roster déclaré</p>
               <ul className="mt-1 list-inside list-disc text-muted-foreground">
                 {application.players.map((p, i) => (
-                  <li key={i}>
-                    {p.first_name} {p.last_name}
-                    {p.nickname ? ` "${p.nickname}"` : ''}
-                    {p.jersey_number != null ? ` — #${p.jersey_number}` : ''}
-                  </li>
+                  <li key={i}>{p.name}</li>
                 ))}
               </ul>
             </div>
@@ -91,22 +81,10 @@ export default async function MyTeamPage({ params }: { params: Promise<{ token: 
           defaultValues={{
             tournament_id: tournament.id,
             team_name: application.team_name,
-            neighborhood: application.neighborhood ?? '',
-            primary_color: application.primary_color ?? '',
-            secondary_color: application.secondary_color ?? '',
             comment: application.comment ?? '',
-            contact_first_name: application.contact_first_name,
-            contact_last_name: application.contact_last_name,
+            contact_name: application.contact_name,
             contact_whatsapp: application.contact_whatsapp,
-            contact_phone: application.contact_phone ?? '',
-            contact_email: application.contact_email ?? '',
-            players: application.players.map((p) => ({
-              first_name: p.first_name,
-              last_name: p.last_name,
-              nickname: p.nickname ?? '',
-              jersey_number: p.jersey_number ?? undefined,
-              role: p.role ?? '',
-            })),
+            players: application.players.map((p) => ({ name: p.name })),
           }}
         />
       ) : null}

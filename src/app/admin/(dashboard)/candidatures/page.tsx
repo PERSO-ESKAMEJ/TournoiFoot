@@ -28,7 +28,7 @@ export default async function CandidaturesPage({
   const supabase = await createClient();
   let query = supabase
     .from('team_applications')
-    .select('id, reference, team_name, contact_first_name, contact_last_name, contact_whatsapp, status, created_at')
+    .select('id, reference, team_name, contact_name, contact_whatsapp, status, created_at')
     .eq('tournament_id', tournament.id)
     .order('created_at', { ascending: false });
 
@@ -73,7 +73,7 @@ export default async function CandidaturesPage({
                   <div className="min-w-0">
                     <p className="truncate font-medium">{app.team_name}</p>
                     <p className="truncate text-xs text-muted-foreground">
-                      {app.reference} · {app.contact_first_name} {app.contact_last_name} · {app.contact_whatsapp}
+                      {app.reference} · {app.contact_name} · {app.contact_whatsapp}
                     </p>
                   </div>
                   <Badge variant={app.status === 'approved' ? 'default' : 'secondary'} className="shrink-0">

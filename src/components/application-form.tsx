@@ -23,7 +23,7 @@ interface ApplicationFormProps {
   accessToken?: string;
 }
 
-const emptyPlayer = { first_name: '', last_name: '', nickname: '', role: '' };
+const emptyPlayer = { name: '' };
 
 export function ApplicationForm({
   tournamentId,
@@ -47,31 +47,16 @@ export function ApplicationForm({
     defaultValues: defaultValues ?? {
       tournament_id: tournamentId,
       team_name: '',
-      neighborhood: '',
-      primary_color: '',
-      secondary_color: '',
       comment: '',
-      contact_first_name: '',
-      contact_last_name: '',
+      contact_name: '',
       contact_whatsapp: '',
-      contact_phone: '',
-      contact_email: '',
       players: [{ ...emptyPlayer }],
     },
   });
 
   const { fields, append, remove } = useFieldArray({ control, name: 'players' });
 
-  async function onSubmit(rawValues: ApplicationInput) {
-    // `valueAsNumber` renvoie NaN quand le champ est vide — on le ramène à
-    // `undefined` (jersey_number est optionnel) avant validation serveur.
-    const values: ApplicationInput = {
-      ...rawValues,
-      players: rawValues.players.map((p) => ({
-        ...p,
-        jersey_number: p.jersey_number != null && Number.isNaN(p.jersey_number) ? undefined : p.jersey_number,
-      })),
-    };
+  async function onSubmit(values: ApplicationInput) {
     setSubmitting(true);
     try {
       if (mode === 'edit' && accessToken) {
@@ -139,26 +124,13 @@ export function ApplicationForm({
         <CardHeader>
           <CardTitle>Équipe</CardTitle>
         </CardHeader>
-        <CardContent className="grid gap-4 sm:grid-cols-2">
-          <div className="sm:col-span-2 space-y-1.5">
+        <CardContent className="space-y-4">
+          <div className="space-y-1.5">
             <Label htmlFor="team_name">Nom de l&apos;équipe</Label>
             <Input id="team_name" {...register('team_name')} />
             {errors.team_name && <p className="text-xs text-destructive">{errors.team_name.message}</p>}
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="neighborhood">Quartier / provenance</Label>
-            <Input id="neighborhood" {...register('neighborhood')} />
-          </div>
-          <div />
-          <div className="space-y-1.5">
-            <Label htmlFor="primary_color">Couleur principale</Label>
-            <Input id="primary_color" placeholder="Ex: Rouge" {...register('primary_color')} />
-          </div>
-          <div className="space-y-1.5">
-            <Label htmlFor="secondary_color">Couleur secondaire</Label>
-            <Input id="secondary_color" placeholder="Optionnel" {...register('secondary_color')} />
-          </div>
-          <div className="sm:col-span-2 space-y-1.5">
             <Label htmlFor="comment">Commentaire</Label>
             <Textarea id="comment" placeholder="Optionnel" {...register('comment')} />
           </div>
@@ -169,20 +141,11 @@ export function ApplicationForm({
         <CardHeader>
           <CardTitle>Responsable</CardTitle>
         </CardHeader>
-        <CardContent className="grid gap-4 sm:grid-cols-2">
+        <CardContent className="space-y-4">
           <div className="space-y-1.5">
-            <Label htmlFor="contact_first_name">Prénom</Label>
-            <Input id="contact_first_name" {...register('contact_first_name')} />
-            {errors.contact_first_name && (
-              <p className="text-xs text-destructive">{errors.contact_first_name.message}</p>
-            )}
-          </div>
-          <div className="space-y-1.5">
-            <Label htmlFor="contact_last_name">Nom</Label>
-            <Input id="contact_last_name" {...register('contact_last_name')} />
-            {errors.contact_last_name && (
-              <p className="text-xs text-destructive">{errors.contact_last_name.message}</p>
-            )}
+            <Label htmlFor="contact_name">Nom</Label>
+            <Input id="contact_name" {...register('contact_name')} />
+            {errors.contact_name && <p className="text-xs text-destructive">{errors.contact_name.message}</p>}
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="contact_whatsapp">Numéro WhatsApp</Label>
@@ -190,14 +153,6 @@ export function ApplicationForm({
             {errors.contact_whatsapp && (
               <p className="text-xs text-destructive">{errors.contact_whatsapp.message}</p>
             )}
-          </div>
-          <div className="space-y-1.5">
-            <Label htmlFor="contact_phone">Téléphone</Label>
-            <Input id="contact_phone" {...register('contact_phone')} />
-          </div>
-          <div className="sm:col-span-2 space-y-1.5">
-            <Label htmlFor="contact_email">Email</Label>
-            <Input id="contact_email" type="email" {...register('contact_email')} />
           </div>
         </CardContent>
       </Card>
@@ -213,40 +168,21 @@ export function ApplicationForm({
           {fields.map((field, index) => (
             <div key={field.id}>
               {index > 0 && <Separator className="mb-4" />}
-              <div className="grid gap-3 sm:grid-cols-[1fr_1fr_auto_auto_auto]">
-                <div className="space-y-1">
-                  <Label className="text-xs">Prénom</Label>
-                  <Input {...register(`players.${index}.first_name`)} />
-                </div>
-                <div className="space-y-1">
+              <div className="flex items-end gap-3">
+                <div className="flex-1 space-y-1">
                   <Label className="text-xs">Nom</Label>
-                  <Input {...register(`players.${index}.last_name`)} />
+                  <Input {...register(`players.${index}.name`)} />
                 </div>
-                <div className="w-24 space-y-1">
-                  <Label className="text-xs">Surnom</Label>
-                  <Input {...register(`players.${index}.nickname`)} />
-                </div>
-                <div className="w-20 space-y-1">
-                  <Label className="text-xs">N°</Label>
-                  <Input
-                    type="number"
-                    min={0}
-                    max={99}
-                    {...register(`players.${index}.jersey_number`, { valueAsNumber: true })}
-                  />
-                </div>
-                <div className="flex items-end">
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    disabled={fields.length <= 1}
-                    onClick={() => remove(index)}
-                    aria-label="Supprimer ce joueur"
-                  >
-                    <Trash2 className="size-4" />
-                  </Button>
-                </div>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  disabled={fields.length <= 1}
+                  onClick={() => remove(index)}
+                  aria-label="Supprimer ce joueur"
+                >
+                  <Trash2 className="size-4" />
+                </Button>
               </div>
             </div>
           ))}

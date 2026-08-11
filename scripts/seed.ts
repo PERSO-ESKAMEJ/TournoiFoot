@@ -87,10 +87,7 @@ async function main() {
         tournament_id: tournamentId,
         reference: `DEMO-${String(i + 1).padStart(3, '0')}`,
         team_name: demo.name,
-        neighborhood: demo.neighborhood,
-        primary_color: 'Bleu',
-        contact_first_name: 'Capitaine',
-        contact_last_name: demo.neighborhood,
+        contact_name: `Capitaine ${demo.neighborhood}`,
         contact_whatsapp: '+237 6 90 00 00 0' + i,
         status: 'approved',
         submitted_at: new Date().toISOString(),
@@ -102,9 +99,7 @@ async function main() {
 
     const players = Array.from({ length: 7 }, (_, p) => ({
       application_id: application.id,
-      first_name: `Joueur${p + 1}`,
-      last_name: demo.neighborhood,
-      jersey_number: p + 1,
+      name: `Joueur${p + 1} ${demo.neighborhood}`,
     }));
     await supabase.from('application_players').insert(players);
 
@@ -114,8 +109,6 @@ async function main() {
         tournament_id: tournamentId,
         application_id: application.id,
         name: demo.name,
-        neighborhood: demo.neighborhood,
-        primary_color: 'Bleu',
       })
       .select('id')
       .single();
@@ -123,7 +116,7 @@ async function main() {
 
     await supabase
       .from('team_members')
-      .insert(players.map((p) => ({ team_id: team.id, first_name: p.first_name, last_name: p.last_name, jersey_number: p.jersey_number })));
+      .insert(players.map((p) => ({ team_id: team.id, name: p.name })));
 
     teamIds.push(team.id);
   }
@@ -134,8 +127,7 @@ async function main() {
       tournament_id: tournamentId,
       reference: 'DEMO-009',
       team_name: 'DEMO — FC Nouveaux Inscrits',
-      contact_first_name: 'Capitaine',
-      contact_last_name: 'Neuf',
+      contact_name: 'Capitaine Neuf',
       contact_whatsapp: '+237 6 90 00 00 09',
       status: 'submitted',
       submitted_at: new Date().toISOString(),
@@ -144,8 +136,7 @@ async function main() {
       tournament_id: tournamentId,
       reference: 'DEMO-010',
       team_name: 'DEMO — FC Hors Délai',
-      contact_first_name: 'Capitaine',
-      contact_last_name: 'Dix',
+      contact_name: 'Capitaine Dix',
       contact_whatsapp: '+237 6 90 00 00 10',
       status: 'rejected',
       review_notes: 'Inscription hors délai (donnée de démonstration)',

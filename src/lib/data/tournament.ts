@@ -43,7 +43,7 @@ export async function getApprovedTeams(tournamentId: string) {
 
 export async function getTeamMembers(teamId: string) {
   const supabase = await createClient();
-  const { data } = await supabase.from('team_members').select('*').eq('team_id', teamId).order('jersey_number');
+  const { data } = await supabase.from('team_members').select('*').eq('team_id', teamId).order('name');
   return data ?? [];
 }
 

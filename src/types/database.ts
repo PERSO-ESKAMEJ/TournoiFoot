@@ -106,16 +106,10 @@ export interface Database {
           reference: string;
           access_token: string;
           team_name: string;
-          neighborhood: string | null;
-          primary_color: string | null;
-          secondary_color: string | null;
           logo_url: string | null;
           comment: string | null;
-          contact_first_name: string;
-          contact_last_name: string;
+          contact_name: string;
           contact_whatsapp: string;
-          contact_phone: string | null;
-          contact_email: string | null;
           status: ApplicationStatus;
           review_notes: string | null;
           submitted_at: string | null;
@@ -128,8 +122,7 @@ export interface Database {
           tournament_id: string;
           reference: string;
           team_name: string;
-          contact_first_name: string;
-          contact_last_name: string;
+          contact_name: string;
           contact_whatsapp: string;
         };
         Update: Partial<Database['public']['Tables']['team_applications']['Row']>;
@@ -138,17 +131,13 @@ export interface Database {
         Row: {
           id: string;
           application_id: string;
-          first_name: string;
-          last_name: string;
-          nickname: string | null;
-          jersey_number: number | null;
+          name: string;
           role: string | null;
           created_at: string;
         };
         Insert: Partial<Database['public']['Tables']['application_players']['Row']> & {
           application_id: string;
-          first_name: string;
-          last_name: string;
+          name: string;
         };
         Update: Partial<Database['public']['Tables']['application_players']['Row']>;
       } & NoRelationships;
@@ -158,9 +147,6 @@ export interface Database {
           tournament_id: string;
           application_id: string | null;
           name: string;
-          neighborhood: string | null;
-          primary_color: string | null;
-          secondary_color: string | null;
           logo_url: string | null;
           seed: number | null;
           checked_in: boolean;
@@ -182,17 +168,13 @@ export interface Database {
         Row: {
           id: string;
           team_id: string;
-          first_name: string;
-          last_name: string;
-          nickname: string | null;
-          jersey_number: number | null;
+          name: string;
           role: string | null;
           present: boolean;
         };
         Insert: Partial<Database['public']['Tables']['team_members']['Row']> & {
           team_id: string;
-          first_name: string;
-          last_name: string;
+          name: string;
         };
         Update: Partial<Database['public']['Tables']['team_members']['Row']>;
       } & NoRelationships;

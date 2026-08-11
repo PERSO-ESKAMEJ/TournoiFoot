@@ -145,7 +145,6 @@ export default async function HomePage() {
               <Card key={team.id} className="transition-transform duration-200 hover:-translate-y-1">
                 <CardContent className="pt-6">
                   <p className="font-medium">{team.name}</p>
-                  {team.neighborhood && <p className="text-sm text-muted-foreground">{team.neighborhood}</p>}
                 </CardContent>
               </Card>
             ))}

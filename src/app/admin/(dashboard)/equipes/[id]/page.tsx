@@ -34,7 +34,7 @@ export default async function AdminTeamDetailPage({ params }: { params: Promise<
 
   const [{ data: team }, { data: members }, { data: matchesRaw }] = await Promise.all([
     supabase.from('teams').select('*').eq('id', id).single(),
-    supabase.from('team_members').select('*').eq('team_id', id).order('jersey_number'),
+    supabase.from('team_members').select('*').eq('team_id', id).order('name'),
     supabase
       .from('matches')
       .select('*, team1:team1_id(id, name), team2:team2_id(id, name), rounds(name)')
@@ -56,7 +56,6 @@ export default async function AdminTeamDetailPage({ params }: { params: Promise<
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">{team.name}</h1>
-          {team.neighborhood && <p className="text-sm text-muted-foreground">{team.neighborhood}</p>}
         </div>
         <Badge>{SPORT_STATUS_LABELS[team.sport_status]}</Badge>
       </div>
@@ -110,12 +109,7 @@ export default async function AdminTeamDetailPage({ params }: { params: Promise<
           ) : (
             <ul className="space-y-1 text-sm">
               {members.map((m) => (
-                <li key={m.id} className="flex justify-between">
-                  <span>
-                    {m.first_name} {m.last_name}
-                  </span>
-                  <span className="text-muted-foreground">{m.jersey_number != null ? `#${m.jersey_number}` : ''}</span>
-                </li>
+                <li key={m.id}>{m.name}</li>
               ))}
             </ul>
           )}

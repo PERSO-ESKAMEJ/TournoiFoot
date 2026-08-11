@@ -23,14 +23,11 @@ export default async function PublicTeamsPage() {
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {teams.map((team) => (
             <Card key={team.id}>
-              <CardContent className="space-y-2 pt-6">
-                <div className="flex items-center justify-between gap-2">
-                  <p className="font-medium">{team.name}</p>
-                  <Badge variant="secondary" className="shrink-0 text-[10px]">
-                    {SPORT_STATUS_LABELS[team.sport_status]}
-                  </Badge>
-                </div>
-                {team.neighborhood && <p className="text-sm text-muted-foreground">{team.neighborhood}</p>}
+              <CardContent className="flex items-center justify-between gap-2 pt-6">
+                <p className="font-medium">{team.name}</p>
+                <Badge variant="secondary" className="shrink-0 text-[10px]">
+                  {SPORT_STATUS_LABELS[team.sport_status]}
+                </Badge>
               </CardContent>
             </Card>
           ))}

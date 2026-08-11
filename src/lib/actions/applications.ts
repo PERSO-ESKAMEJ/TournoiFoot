@@ -133,9 +133,6 @@ export async function approveApplication(applicationId: string): Promise<ActionR
       tournament_id: tournament.id,
       application_id: application.id,
       name: application.team_name,
-      neighborhood: application.neighborhood,
-      primary_color: application.primary_color,
-      secondary_color: application.secondary_color,
       logo_url: application.logo_url,
     })
     .select('id')
@@ -144,7 +141,7 @@ export async function approveApplication(applicationId: string): Promise<ActionR
 
   const { data: players } = await supabase
     .from('application_players')
-    .select('first_name, last_name, nickname, jersey_number, role')
+    .select('name, role')
     .eq('application_id', application.id);
 
   if (players && players.length > 0) {
