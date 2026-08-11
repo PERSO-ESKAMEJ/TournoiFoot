@@ -49,77 +49,84 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  /* Charte graphique du tournoi — or antique / charbon chaud / crème,
+     reprise des flyers (fond crème clair par défaut, cf. .dark pour la
+     variante charbon+or utilisée volontairement sur le héros). */
+  --background: #faf6ec;
+  --foreground: #241f18;
+  --card: #ffffff;
+  --card-foreground: #241f18;
+  --popover: #ffffff;
+  --popover-foreground: #241f18;
+  --primary: #be9430;
+  --primary-foreground: #241f18;
+  --secondary: #f0e6d2;
+  --secondary-foreground: #241f18;
+  --muted: #f3ecdd;
+  --muted-foreground: #79705c;
+  --accent: #f5e9c8;
+  --accent-foreground: #241f18;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  --border: #e6d9bb;
+  --input: #e6d9bb;
+  --ring: #be9430;
+  --gold-gradient-from: #deb84a;
+  --gold-gradient-to: #a97c1f;
+  --chart-1: #deb84a;
+  --chart-2: #a97c1f;
+  --chart-3: #79705c;
+  --chart-4: #be9430;
+  --chart-5: #241f18;
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: #f5e9c8;
+  --sidebar-foreground: #241f18;
+  --sidebar-primary: #be9430;
+  --sidebar-primary-foreground: #241f18;
+  --sidebar-accent: #f0e6d2;
+  --sidebar-accent-foreground: #241f18;
+  --sidebar-border: #e6d9bb;
+  --sidebar-ring: #be9430;
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --background: #17130e;
+  --foreground: #f3eedf;
+  --card: #211c14;
+  --card-foreground: #f3eedf;
+  --popover: #211c14;
+  --popover-foreground: #f3eedf;
+  --primary: #ddb44e;
+  --primary-foreground: #1b160f;
+  --secondary: #2a2318;
+  --secondary-foreground: #f3eedf;
+  --muted: #2a2318;
+  --muted-foreground: #b7a886;
+  --accent: #33291a;
+  --accent-foreground: #f3eedf;
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --border: #3b3122;
+  --input: #3b3122;
+  --ring: #ddb44e;
+  --gold-gradient-from: #eac766;
+  --gold-gradient-to: #c99a31;
+  --chart-1: #eac766;
+  --chart-2: #c99a31;
+  --chart-3: #b7a886;
+  --chart-4: #ddb44e;
+  --chart-5: #f3eedf;
+  --sidebar: #211c14;
+  --sidebar-foreground: #f3eedf;
+  --sidebar-primary: #ddb44e;
+  --sidebar-primary-foreground: #1b160f;
+  --sidebar-accent: #2a2318;
+  --sidebar-accent-foreground: #f3eedf;
+  --sidebar-border: #3b3122;
+  --sidebar-ring: #ddb44e;
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring/50 transition-colors duration-200;
   }
   body {
     @apply bg-background text-foreground;
@@ -127,4 +134,10 @@
   html {
     @apply font-sans;
   }
+}
+
+/* Fine liseré or décoratif, réutilisable (nav, séparateurs de section). */
+.gold-hairline {
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--gold-gradient-from), transparent);
 }
