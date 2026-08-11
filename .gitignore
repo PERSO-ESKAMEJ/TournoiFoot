@@ -40,3 +40,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# dossier de brouillon local pour les photos avant de les placer dans public/
+/photos
