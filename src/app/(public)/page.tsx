@@ -1,9 +1,10 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { getCurrentTournament, getApprovedTeams } from '@/lib/data/tournament';
 import { formatDateLong } from '@/lib/format';
-import { Trophy, Calendar, MapPin, Users, Phone } from 'lucide-react';
+import { Calendar, MapPin, Users, Phone } from 'lucide-react';
 
 export default async function HomePage() {
   const tournament = await getCurrentTournament();
@@ -32,7 +33,18 @@ export default async function HomePage() {
         <div className="pointer-events-none absolute right-0 top-0 h-48 w-48 rounded-full bg-[radial-gradient(circle,var(--gold-gradient-from)_0%,transparent_70%)] opacity-10 blur-3xl" />
 
         <div className="relative mx-auto max-w-2xl animate-in fade-in slide-in-from-bottom-6 duration-700 space-y-5">
-          <Trophy className="mx-auto size-9 text-[var(--gold-gradient-from)]" />
+          <div className="mx-auto size-28 rounded-full bg-[linear-gradient(135deg,var(--gold-gradient-from),var(--gold-gradient-to))] p-1 shadow-lg shadow-black/30 sm:size-32">
+            <div className="relative h-full w-full overflow-hidden rounded-full ring-2 ring-[#17130e]">
+              <Image
+                src="/papa.png"
+                alt={tournament.father_name ?? 'Photo commémorative'}
+                fill
+                sizes="128px"
+                className="object-cover"
+                priority
+              />
+            </div>
+          </div>
           {tournament.memorial_subtitle && (
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--gold-gradient-from)] sm:text-sm">
               {tournament.memorial_subtitle}

@@ -15,7 +15,7 @@ export function PublicNav() {
       <nav className="mx-auto flex max-w-5xl items-center justify-between gap-4 overflow-x-auto px-4 py-3 text-sm">
         <Link href="/" className="group flex shrink-0 items-center gap-2 font-semibold tracking-tight">
           <Trophy className="size-4 text-primary transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
-          <span>Tournoi commémoratif</span>
+          <span>Accueil tournoi</span>
         </Link>
         <div className="flex shrink-0 items-center gap-5">
           {LINKS.slice(1).map((link) => (
