@@ -68,9 +68,6 @@ async function main() {
       contact_name: 'Jean-Raymond',
       contact_phone: '+237 6 00 00 00 00',
       father_name: 'Papa',
-      field_price_per_hour: 10000,
-      field_hours_booked: 4,
-      jersey_unit_price: 900,
     })
     .select('id')
     .single();
@@ -228,20 +225,6 @@ async function main() {
   }
 
   await supabase.from('tournaments').update({ status: 'in_progress' }).eq('id', tournamentId);
-
-  console.log('→ Ajout de données logistique/budget de démonstration…');
-  await supabase.from('expenses').insert([
-    { tournament_id: tournamentId, category: 'terrain', label: 'Location terrain (4h)', quantity: 4, unit_price: 10000, planned_amount: 40000, actual_amount: 40000, status: 'paid', responsible: 'Jean-Raymond' },
-    { tournament_id: tournamentId, category: 'chasubles', label: 'Chasubles (16 unités)', quantity: 16, unit_price: 900, planned_amount: 14400, status: 'planned', responsible: 'Mike' },
-  ]);
-  await supabase.from('drink_options').insert([
-    { tournament_id: tournamentId, option_name: 'Cannettes', supplier: 'Mama', quantity: 100, unit_price: 500, extra_fees: 5000, notes: 'Inclut glacières' },
-    { tournament_id: tournamentId, option_name: 'Bières à pression', supplier: 'Sandy', quantity: 1, unit_price: 60000, extra_fees: 0 },
-  ]);
-  await supabase.from('communication_assets').insert([
-    { tournament_id: tournamentId, name: 'Flyer appel à candidatures', type: 'flyer_inscription', status: 'todo', responsible: 'Mike' },
-    { tournament_id: tournamentId, name: 'Flyer journée de gala', type: 'flyer_general', status: 'todo', responsible: 'Mike' },
-  ]);
 
   console.log(`\n✓ Tournoi de démonstration créé (id: ${tournamentId})`);
   console.log('  8 équipes, quarts joués, 1 demi jouée, 1 demi en cours, finale à venir.');

@@ -13,8 +13,6 @@ const ITEMS: { href: string; label: string; managersOnly?: boolean }[] = [
   { href: '/admin/check-in', label: 'Check-in' },
   { href: '/admin/tournoi/tableau', label: 'Tableau du tournoi' },
   { href: '/admin/tournoi/matchs', label: 'Matchs' },
-  { href: '/admin/logistique', label: 'Logistique', managersOnly: true },
-  { href: '/admin/budget', label: 'Budget', managersOnly: true },
   { href: '/admin/communication', label: 'Communication', managersOnly: true },
   { href: '/admin/parametres', label: 'Paramètres', managersOnly: true },
 ];

@@ -52,9 +52,6 @@ export function TournamentSettingsForm({ tournament }: { tournament: Tournament 
           contact_name: tournament.contact_name ?? '',
           contact_phone: tournament.contact_phone ?? '',
           father_name: tournament.father_name ?? '',
-          field_price_per_hour: tournament.field_price_per_hour ?? undefined,
-          field_hours_booked: tournament.field_hours_booked ?? undefined,
-          jersey_unit_price: tournament.jersey_unit_price ?? undefined,
         }
       : {
           name: 'Tournoi commémoratif — 20 ans',
@@ -74,21 +71,10 @@ export function TournamentSettingsForm({ tournament }: { tournament: Tournament 
           contact_name: '',
           contact_phone: '',
           father_name: '',
-          field_price_per_hour: 10000,
-          field_hours_booked: 4,
-          jersey_unit_price: 900,
         },
   });
 
-  async function onSubmit(rawValues: TournamentSettingsInput) {
-    // `valueAsNumber` renvoie NaN quand un champ optionnel est laissé vide.
-    const sanitizeOptional = (n: number | undefined) => (n != null && Number.isNaN(n) ? undefined : n);
-    const values: TournamentSettingsInput = {
-      ...rawValues,
-      field_price_per_hour: sanitizeOptional(rawValues.field_price_per_hour),
-      field_hours_booked: sanitizeOptional(rawValues.field_hours_booked),
-      jersey_unit_price: sanitizeOptional(rawValues.jersey_unit_price),
-    };
+  async function onSubmit(values: TournamentSettingsInput) {
     const res = await saveTournamentSettings(tournament?.id ?? null, values);
     if (!res.success) {
       toast.error(res.error ?? 'Erreur');
@@ -200,7 +186,7 @@ export function TournamentSettingsForm({ tournament }: { tournament: Tournament 
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">Contact & terrain</CardTitle>
+          <CardTitle className="text-base">Contact</CardTitle>
         </CardHeader>
         <CardContent className="grid gap-4 sm:grid-cols-3">
           <div className="space-y-1.5">
@@ -210,19 +196,6 @@ export function TournamentSettingsForm({ tournament }: { tournament: Tournament 
           <div className="space-y-1.5">
             <Label>Téléphone du contact</Label>
             <Input {...register('contact_phone')} />
-          </div>
-          <div />
-          <div className="space-y-1.5">
-            <Label>Prix terrain / heure (FCFA)</Label>
-            <Input type="number" {...register('field_price_per_hour', { valueAsNumber: true })} />
-          </div>
-          <div className="space-y-1.5">
-            <Label>Heures réservées</Label>
-            <Input type="number" step="0.5" {...register('field_hours_booked', { valueAsNumber: true })} />
-          </div>
-          <div className="space-y-1.5">
-            <Label>Prix chasuble (FCFA)</Label>
-            <Input type="number" {...register('jersey_unit_price', { valueAsNumber: true })} />
           </div>
         </CardContent>
       </Card>

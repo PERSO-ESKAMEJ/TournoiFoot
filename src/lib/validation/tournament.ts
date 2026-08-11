@@ -29,9 +29,6 @@ export const tournamentSettingsSchema = z.object({
   contact_name: z.string().trim().max(120).optional().or(z.literal('')),
   contact_phone: z.string().trim().max(30).optional().or(z.literal('')),
   father_name: z.string().trim().max(120).optional().or(z.literal('')),
-  field_price_per_hour: z.number().min(0).optional(),
-  field_hours_booked: z.number().min(0).optional(),
-  jersey_unit_price: z.number().min(0).optional(),
 });
 
 export type TournamentSettingsInput = z.infer<typeof tournamentSettingsSchema>;
