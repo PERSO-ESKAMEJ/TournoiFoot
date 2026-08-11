@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { getCurrentTournament, getApprovedTeams } from '@/lib/data/tournament';
-import { formatDateLong, formatFcfa } from '@/lib/format';
+import { formatDateLong } from '@/lib/format';
 
 export default async function HomePage() {
   const tournament = await getCurrentTournament();
@@ -124,7 +124,7 @@ export default async function HomePage() {
       )}
 
       <footer className="border-t px-6 py-6 text-center text-xs text-muted-foreground">
-        Terrain réservé au prix de {formatFcfa(tournament.field_price_per_hour)}/h — organisation par la famille.
+        Organisation par la famille.
       </footer>
     </main>
   );
