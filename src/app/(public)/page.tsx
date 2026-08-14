@@ -33,13 +33,13 @@ export default async function HomePage() {
         <div className="pointer-events-none absolute right-0 top-0 h-48 w-48 rounded-full bg-[radial-gradient(circle,var(--gold-gradient-from)_0%,transparent_70%)] opacity-10 blur-3xl" />
 
         <div className="relative mx-auto max-w-2xl animate-in fade-in slide-in-from-bottom-6 duration-700 space-y-5">
-          <div className="mx-auto size-28 rounded-full bg-[linear-gradient(135deg,var(--gold-gradient-from),var(--gold-gradient-to))] p-1 shadow-lg shadow-black/30 sm:size-32">
-            <div className="relative h-full w-full overflow-hidden rounded-full ring-2 ring-[#17130e]">
+          <div className="mx-auto w-56 max-w-[75vw] rounded-2xl bg-[linear-gradient(135deg,var(--gold-gradient-from),var(--gold-gradient-to))] p-1 shadow-lg shadow-black/30 sm:w-64">
+            <div className="relative aspect-[1225/864] w-full overflow-hidden rounded-xl ring-2 ring-[#17130e]">
               <Image
-                src="/papa.png"
+                src="/papa.jpg"
                 alt={tournament.father_name ?? 'Photo commémorative'}
                 fill
-                sizes="128px"
+                sizes="(min-width: 640px) 256px, 224px"
                 className="object-cover"
                 priority
               />
